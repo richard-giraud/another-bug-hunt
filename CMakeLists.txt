@@ -3,4 +3,8 @@ project(another_bug_hunt)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(another_bug_hunt main.cpp)
+find_package(SDL2 REQUIRED)
+include_directories(another_bug_huntbuil ${SDL2_INCLUDE_DIRS})
+
+add_executable(another_bug_hunt main.cpp src/Application.cpp src/Application.h)
+target_link_libraries(another_bug_hunt ${SDL2_LIBRARIES})
