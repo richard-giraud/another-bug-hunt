@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 #include "Application.h"
+#include "Surface.h"
 
 Application::Application() {
     int initStatus = SDL_Init(SDL_INIT_EVERYTHING);
@@ -53,45 +54,14 @@ void Application::run() {
 }
 
 void Application::render() {
-    SDL_Surface* surface;
-    SDL_Texture* texture;
-    cairo_surface_t* cr_surface;
-    cairo_t* cairo;
-
-    // Allocate memory for Cairo to draw to
-    surface = SDL_CreateRGBSurface(
-            0,
-            screenWidth, screenHeight, 32,
-            0x00ff0000, 0x0000ff00, 0x000000ff, 0
-    );
-    if (surface == nullptr) {
-        throw std::runtime_error("Could not create the RGB surface");
-    }
-
-    // Initialize the Cairo instance
-    cr_surface = cairo_image_surface_create_for_data(
-            (unsigned char*)surface->pixels,
-            CAIRO_FORMAT_RGB24,
-            surface->w,
-            surface->h,
-            surface->pitch
-    );
-    cairo = cairo_create(cr_surface);
+    Surface fr = Surface(screenWidth, screenHeight);
 
     // Draw the room
     if (room) {
-        room->render(cairo);
+        room->render(fr.getCairo());
     }
 
-    // Display the rendered image
-    texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (texture == nullptr) {
-        throw std::runtime_error("Could not create the texture");
-    }
-    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    fr.renderCopy(renderer);
+
     SDL_RenderPresent(renderer);
-
-    // Clean-up
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
 }
