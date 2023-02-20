@@ -19,16 +19,19 @@ private:
     inline static const char screenTitle[] = "Another Bug Hunt";
     inline static const int screenFlags = 0;
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
 
     bool applicationIsRunning = false;
-    Room* room = nullptr;
+    Room *room = nullptr;
 
     void render();
+
 public:
     Application();
+
     ~Application();
+
     void run();
 };
 

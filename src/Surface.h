@@ -10,15 +10,17 @@
 
 class Surface {
 private:
-    SDL_Surface* surface;
-    cairo_surface_t* cr_surface;
-    cairo_t* cairo;
+    SDL_Surface *surface;
+    cairo_surface_t *cr_surface;
+    cairo_t *cairo;
 public:
     Surface(int screenWidth, int screenHeight);
+
     ~Surface();
 
-    void renderCopy(SDL_Renderer* renderer);
-    cairo_t* getCairo();
+    void renderCopy(SDL_Renderer *renderer);
+
+    cairo_t *getCairo();
 };
 
 #endif //ANOTHER_BUG_HUNT_SURFACE_H

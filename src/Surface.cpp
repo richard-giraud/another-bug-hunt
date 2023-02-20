@@ -19,7 +19,7 @@ Surface::Surface(int screenWidth, int screenHeight) {
 
     // Initialize the Cairo instance
     cr_surface = cairo_image_surface_create_for_data(
-            (unsigned char*)surface->pixels,
+            (unsigned char *) surface->pixels,
             CAIRO_FORMAT_RGB24,
             surface->w,
             surface->h,
@@ -32,8 +32,8 @@ Surface::~Surface() {
     SDL_FreeSurface(surface);
 }
 
-void Surface::renderCopy(SDL_Renderer* renderer) {
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+void Surface::renderCopy(SDL_Renderer *renderer) {
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     if (texture == nullptr) {
         throw std::runtime_error("Could not create the texture");

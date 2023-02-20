@@ -16,8 +16,8 @@ private:
     int width;
 public:
     Room();
-    void render(SDL_Surface* surface);
-    void render(cairo_t* cr) const;
+
+    void render(cairo_t *cr) const;
 };
 
 
