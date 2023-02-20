@@ -24,6 +24,8 @@ private:
 
     bool applicationIsRunning = false;
     Room* room = nullptr;
+
+    void render();
 public:
     Application();
     ~Application();

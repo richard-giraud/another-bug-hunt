@@ -39,10 +39,6 @@ void Application::run() {
     applicationIsRunning = true;
     while (applicationIsRunning) {
         SDL_Event event;
-        SDL_Surface* surface;
-        SDL_Texture* texture;
-        cairo_surface_t* cr_surface;
-        cairo_t* cairo;
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_WINDOWEVENT) {
@@ -52,42 +48,50 @@ void Application::run() {
             }
         }
 
-        surface = SDL_CreateRGBSurface(
-                0,
-                screenWidth, screenHeight, 32,
-                0x00ff0000, 0x0000ff00, 0x000000ff, 0
-        );
-
-        if (surface == nullptr) {
-            throw std::runtime_error("Could not create the RGB surface");
-        }
-
-        cr_surface = cairo_image_surface_create_for_data(
-                (unsigned char*)surface->pixels,
-                CAIRO_FORMAT_RGB24,
-                surface->w,
-                surface->h,
-                surface->pitch
-        );
-
-        cairo = cairo_create(cr_surface);
-        cairo_set_source_rgba(cairo, 1, 1, 1, 1.0);
-
-        if (room) {
-            room->render(cairo);
-        }
-
-        texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-        if (texture == nullptr) {
-            throw std::runtime_error("Could not create the texture");
-        }
-
-        SDL_RenderCopy(renderer, texture, nullptr, nullptr);
-        SDL_RenderPresent(renderer);
-
-        SDL_DestroyTexture(texture);
-
-        SDL_FreeSurface(surface);
+        this->render();
     }
+}
+
+void Application::render() {
+    SDL_Surface* surface;
+    SDL_Texture* texture;
+    cairo_surface_t* cr_surface;
+    cairo_t* cairo;
+
+    // Allocate memory for Cairo to draw to
+    surface = SDL_CreateRGBSurface(
+            0,
+            screenWidth, screenHeight, 32,
+            0x00ff0000, 0x0000ff00, 0x000000ff, 0
+    );
+    if (surface == nullptr) {
+        throw std::runtime_error("Could not create the RGB surface");
+    }
+
+    // Initialize the Cairo instance
+    cr_surface = cairo_image_surface_create_for_data(
+            (unsigned char*)surface->pixels,
+            CAIRO_FORMAT_RGB24,
+            surface->w,
+            surface->h,
+            surface->pitch
+    );
+    cairo = cairo_create(cr_surface);
+
+    // Draw the room
+    if (room) {
+        room->render(cairo);
+    }
+
+    // Display the rendered image
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (texture == nullptr) {
+        throw std::runtime_error("Could not create the texture");
+    }
+    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    SDL_RenderPresent(renderer);
+
+    // Clean-up
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
 }
