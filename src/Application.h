@@ -6,7 +6,11 @@
 #define ANOTHER_BUG_HUNT_APPLICATION_H
 
 #include <string>
+
+#include <cairo/cairo.h>
 #include <SDL2/SDL.h>
+
+#include "Room.h"
 
 class Application {
 private:
@@ -15,11 +19,19 @@ private:
     inline static const char screenTitle[] = "Another Bug Hunt";
     inline static const int screenFlags = 0;
 
-    SDL_Window* window;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+
     bool applicationIsRunning = false;
+    Room *room = nullptr;
+
+    void render();
+
 public:
     Application();
+
     ~Application();
+
     void run();
 };
 
