@@ -10,8 +10,8 @@
 #include <cairo/cairo.h>
 #include <SDL2/SDL.h>
 
-#include "Marine.h"
-#include "Room.h"
+#include "models/Marine.h"
+#include "models/Room.h"
 
 class Application {
 private:
