@@ -16,14 +16,21 @@ private:
     bool isSelected = false;
     // How close does a click need to be to select it
     float selectRadius = 2.0;
+
+    SDL_Point *movingTo = nullptr;
 public:
     Marine(int x, int y);
+    ~Marine();
 
     void render(cairo_t *cr) const;
 
     bool doesClickSelect(SDL_Point &point) const;
 
+    [[nodiscard]] bool getSelected() const;
+
     void setSelected(bool value);
+
+    void moveTo(SDL_Point &point);
 };
 
 

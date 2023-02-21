@@ -13,7 +13,11 @@
 
 class Marines : public std::list<Marine> {
 public:
-    void selectMarineByClick(SDL_Point &point);
+    void unselectMarines();
+
+    Marine *findMarineByClick(SDL_Point &point);
+
+    Marine *findSelected();
 
     void render(cairo_t *cr);
 };

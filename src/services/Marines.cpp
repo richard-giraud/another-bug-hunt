@@ -5,22 +5,39 @@
 #include <algorithm>
 #include "Marines.h"
 
-void Marines::selectMarineByClick(SDL_Point &point) {
-    std::list<Marine>::iterator it;
+void Marines::unselectMarines() {
+    auto it = begin();
 
-    Marine *selected = nullptr;
+    while(it != end()) {
+        it->setSelected(false);
+        it++;
+    }
+}
 
-    for (it = begin(); it != end(); it++) {
-        Marine *marine = &(*it);
-        if (marine->doesClickSelect(point)) {
-            selected = marine;
+Marine *Marines::findMarineByClick(SDL_Point &point) {
+    auto it = begin();
+
+    while(it != end()) {
+        if (it->doesClickSelect(point)) {
+            return &(*it);
         }
-        marine->setSelected(false);
+        it++;
     }
 
-    if (selected) {
-        selected->setSelected(true);
+    return nullptr;
+}
+
+Marine *Marines::findSelected() {
+    auto it = begin();
+
+    while(it != end()) {
+        if (it->getSelected()) {
+            return &(*it);
+        }
+        it++;
     }
+
+    return nullptr;
 }
 
 void Marines::render(cairo_t *cr) {

@@ -99,6 +99,15 @@ void Application::handleMouseClick(const SDL_MouseButtonEvent &event) {
     if (event.button == SDL_BUTTON_LEFT) {
         SDL_Point point{event.x, event.y};
 
-        marines.selectMarineByClick(point);
+        Marine *marine;;
+
+        if ((marine = marines.findMarineByClick(point))) {
+            // Select marine
+            marines.unselectMarines();
+            marine->setSelected(true);
+        } else if ((marine = marines.findSelected())){
+            // Move marine
+            marine->moveTo(point);
+        }
     }
 }

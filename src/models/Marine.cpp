@@ -8,6 +8,10 @@
 
 Marine::Marine(int x, int y) : positionX{x}, positionY{y} {}
 
+Marine::~Marine() {
+    delete movingTo;
+}
+
 void Marine::render(cairo_t *cr) const {
     if (isSelected) {
         cairo_set_source_rgba(cr, 1, 1, 0, 1);
@@ -34,6 +38,16 @@ bool Marine::doesClickSelect(SDL_Point &point) const {
     return isClicked;
 }
 
+bool Marine::getSelected() const {
+    return isSelected;
+}
+
 void Marine::setSelected(bool value) {
     isSelected = value;
+}
+
+void Marine::moveTo(SDL_Point &point) {
+    delete movingTo;
+
+    movingTo = new SDL_Point(point);
 }
