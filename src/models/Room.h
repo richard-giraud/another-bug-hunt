@@ -15,7 +15,7 @@ private:
     int height;
     int width;
 public:
-    Room();
+    Room(int x, int y, int w, int h);
 
     void render(cairo_t *cr) const;
 };

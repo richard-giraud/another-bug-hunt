@@ -29,8 +29,8 @@ Application::Application() {
         throw std::runtime_error("Could not create the renderer");
     }
 
-    marine = new Marine();
-    room = new Room();
+    marine = new Marine(50, 50);
+    room = new Room(20, 20, 50, 40);
 }
 
 Application::~Application() {

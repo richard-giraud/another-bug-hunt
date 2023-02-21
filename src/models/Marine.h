@@ -12,7 +12,7 @@ private:
     int positionX;
     int positionY;
 public:
-    Marine();
+    Marine(int x, int y);
 
     void render(cairo_t *cr) const;
 };

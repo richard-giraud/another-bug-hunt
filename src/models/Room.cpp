@@ -4,13 +4,7 @@
 
 #include "Room.h"
 
-Room::Room() {
-    positionX = 20;
-    positionY = 20;
-
-    height = 40;
-    width = 50;
-}
+Room::Room(int x, int y, int w, int h) : positionX{x}, positionY{y}, width{w}, height{h} {}
 
 void Room::render(cairo_t *cr) const {
     cairo_set_source_rgba(cr, 1, 0, 0, 1);
