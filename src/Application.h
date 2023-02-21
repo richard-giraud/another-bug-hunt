@@ -10,6 +10,7 @@
 #include <cairo/cairo.h>
 #include <SDL2/SDL.h>
 
+#include "Marine.h"
 #include "Room.h"
 
 class Application {
@@ -25,6 +26,7 @@ private:
 
     bool applicationIsRunning = false;
     u_int64_t frameStart = 0;
+    Marine *marine = nullptr;
     Room *room = nullptr;
 
     void startFrame();
