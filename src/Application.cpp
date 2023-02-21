@@ -29,7 +29,9 @@ Application::Application() {
         throw std::runtime_error("Could not create the renderer");
     }
 
-    marine = new Marine(50, 50);
+    marines.push_back(Marine(50, 40));
+    marines.push_back(Marine(40, 50));
+
     room = new Room(20, 20, 50, 40);
 }
 
@@ -51,6 +53,8 @@ void Application::run() {
                 if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
                     applicationIsRunning = false;
                 }
+            } else if (event.type == SDL_MOUSEBUTTONDOWN) {
+                handleMouseClick(event.button);
             }
         }
 
@@ -82,12 +86,19 @@ void Application::render() {
     if (room) {
         room->render(fr.getCairo());
     }
-    // Draw the marine
-    if (marine) {
-        marine->render(fr.getCairo());
-    }
+
+    // Draw the marines
+    marines.render(fr.getCairo());
 
     fr.renderCopy(renderer);
 
     SDL_RenderPresent(renderer);
+}
+
+void Application::handleMouseClick(const SDL_MouseButtonEvent &event) {
+    if (event.button == SDL_BUTTON_LEFT) {
+        SDL_Point point{event.x, event.y};
+
+        marines.selectMarineByClick(point);
+    }
 }

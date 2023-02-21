@@ -16,6 +16,6 @@ add_executable(another_bug_hunt
         src/models/Room.cpp src/models/Room.h
         src/Surface.cpp src/Surface.h
         src/models/Marine.cpp src/models/Marine.h
-        )
+        src/services/Marines.cpp src/services/Marines.h)
 target_link_libraries(another_bug_hunt ${SDL2_LIBRARIES})
 target_link_libraries(another_bug_hunt ${CAIRO_LIBRARIES})
