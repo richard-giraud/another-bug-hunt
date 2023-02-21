@@ -2,10 +2,13 @@
 // Created by richardwork on 19/02/23.
 //
 
+#include <chrono>
 #include <stdexcept>
 
 #include "Application.h"
 #include "Surface.h"
+
+using namespace std::chrono;
 
 Application::Application() {
     int initStatus = SDL_Init(SDL_INIT_EVERYTHING);
@@ -39,6 +42,7 @@ Application::~Application() {
 void Application::run() {
     applicationIsRunning = true;
     while (applicationIsRunning) {
+        this->startFrame();
         SDL_Event event;
 
         while (SDL_PollEvent(&event)) {
@@ -50,6 +54,23 @@ void Application::run() {
         }
 
         this->render();
+        this->waitForNextFrame();
+    }
+}
+
+void Application::startFrame() {
+    this->frameStart = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+}
+
+void Application::waitForNextFrame() const {
+    u_int64_t current = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    u_int64_t elapsed = current - this->frameStart;
+    u_int64_t frameLength = (1000 / Application::framesPerSecond);
+
+    // This enforces the maximum FPS.  If it starts taking more than the allocated time, it will slow down.
+    if (frameLength > elapsed) {
+        u_int64_t remainder = frameLength - elapsed;
+        SDL_Delay(remainder);
     }
 }
 

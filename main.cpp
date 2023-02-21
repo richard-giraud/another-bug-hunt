@@ -1,5 +1,3 @@
-#include <stdexcept>
-
 #include "src/Application.h"
 
 int main() {

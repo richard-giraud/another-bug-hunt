@@ -18,14 +18,20 @@ private:
     inline static const int screenWidth = 640;
     inline static const char screenTitle[] = "Another Bug Hunt";
     inline static const int screenFlags = 0;
+    inline static const int framesPerSecond = 60;
 
     SDL_Window *window;
     SDL_Renderer *renderer;
 
     bool applicationIsRunning = false;
+    u_int64_t frameStart = 0;
     Room *room = nullptr;
 
+    void startFrame();
+
     void render();
+
+    void waitForNextFrame() const;
 
 public:
     Application();
