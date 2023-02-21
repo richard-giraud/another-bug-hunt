@@ -10,6 +10,12 @@ include_directories(another_bug_hunt ${SDL2_INCLUDE_DIRS})
 find_package(Cairo REQUIRED)
 include_directories(another_bug_hunt ${CAIRO_INCLUDE_DIRS})
 
-add_executable(another_bug_hunt main.cpp src/Application.cpp src/Application.h src/Room.cpp src/Room.h src/Surface.cpp src/Surface.h)
+add_executable(another_bug_hunt
+        main.cpp
+        src/Application.cpp src/Application.h
+        src/models/Room.cpp src/models/Room.h
+        src/Surface.cpp src/Surface.h
+        src/models/Marine.cpp src/models/Marine.h
+        )
 target_link_libraries(another_bug_hunt ${SDL2_LIBRARIES})
 target_link_libraries(another_bug_hunt ${CAIRO_LIBRARIES})

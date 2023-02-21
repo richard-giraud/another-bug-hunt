@@ -29,7 +29,8 @@ Application::Application() {
         throw std::runtime_error("Could not create the renderer");
     }
 
-    room = new Room();
+    marine = new Marine(50, 50);
+    room = new Room(20, 20, 50, 40);
 }
 
 Application::~Application() {
@@ -80,6 +81,10 @@ void Application::render() {
     // Draw the room
     if (room) {
         room->render(fr.getCairo());
+    }
+    // Draw the marine
+    if (marine) {
+        marine->render(fr.getCairo());
     }
 
     fr.renderCopy(renderer);
