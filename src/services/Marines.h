@@ -20,6 +20,8 @@ public:
     Marine *findSelected();
 
     void render(cairo_t *cr);
+
+    void updateStatuses();
 };
 
 

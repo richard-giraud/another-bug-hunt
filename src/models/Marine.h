@@ -18,6 +18,8 @@ private:
     float selectRadius = 2.0;
 
     SDL_Point *movingTo = nullptr;
+    const float movingSpeed = 1.0;
+
 public:
     Marine(int x, int y);
     ~Marine();
@@ -31,6 +33,8 @@ public:
     void setSelected(bool value);
 
     void moveTo(SDL_Point &point);
+
+    void updateStatus();
 };
 
 

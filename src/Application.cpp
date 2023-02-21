@@ -58,6 +58,7 @@ void Application::run() {
             }
         }
 
+        this->updateState();
         this->render();
         this->waitForNextFrame();
     }
@@ -77,6 +78,11 @@ void Application::waitForNextFrame() const {
         u_int64_t remainder = frameLength - elapsed;
         SDL_Delay(remainder);
     }
+}
+
+void Application::updateState() {
+    // Update the logic
+    marines.updateStatuses();
 }
 
 void Application::render() {

@@ -48,3 +48,12 @@ void Marines::render(cairo_t *cr) {
         it++;
     }
 }
+
+void Marines::updateStatuses() {
+    auto it = begin();
+
+    while (it != end()) {
+        it->updateStatus();
+        it++;
+    }
+}

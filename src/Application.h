@@ -32,6 +32,8 @@ private:
 
     void startFrame();
 
+    void updateState();
+
     void render();
 
     void waitForNextFrame() const;

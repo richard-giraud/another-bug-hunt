@@ -51,3 +51,31 @@ void Marine::moveTo(SDL_Point &point) {
 
     movingTo = new SDL_Point(point);
 }
+
+void Marine::updateStatus() {
+    if (movingTo) {
+        if (movingTo->x == positionX && movingTo->y == positionY) {
+            // We've arrived
+            delete movingTo;
+            movingTo = nullptr;
+        } else {
+            // Move
+            int hComponent = movingTo->x - positionX;
+            int vComponent = movingTo->y - positionY;
+
+            if (abs(hComponent) > abs(vComponent)) {
+                if (hComponent > 0) {
+                    positionX++;
+                } else {
+                    positionX--;
+                }
+            } else {
+                if (vComponent > 0) {
+                    positionY++;
+                } else {
+                    positionY--;
+                }
+            }
+        }
+    }
+}
