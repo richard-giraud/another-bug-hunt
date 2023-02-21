@@ -29,12 +29,15 @@ Application::Application() {
         throw std::runtime_error("Could not create the renderer");
     }
 
-    marine = new Marine(50, 50);
+    marine1 = new Marine(50, 40);
+    marine2 = new Marine(40, 50);
     room = new Room(20, 20, 50, 40);
 }
 
 Application::~Application() {
     delete room;
+    delete marine1;
+    delete marine2;
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -51,6 +54,8 @@ void Application::run() {
                 if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
                     applicationIsRunning = false;
                 }
+            } else if (event.type == SDL_MOUSEBUTTONDOWN) {
+                handleMouseClick(event.button);
             }
         }
 
@@ -82,12 +87,35 @@ void Application::render() {
     if (room) {
         room->render(fr.getCairo());
     }
-    // Draw the marine
-    if (marine) {
-        marine->render(fr.getCairo());
+    // Draw the marines
+    if (marine1) {
+        marine1->render(fr.getCairo());
+    }
+    if (marine2) {
+        marine2->render(fr.getCairo());
     }
 
     fr.renderCopy(renderer);
 
     SDL_RenderPresent(renderer);
+}
+
+void Application::handleMouseClick(const SDL_MouseButtonEvent &event) {
+    if (event.button == SDL_BUTTON_LEFT) {
+        SDL_Point point{event.x, event.y};
+
+        if (marine1) {
+            marine1->setSelected(false);
+        }
+        if (marine2) {
+            marine2->setSelected(false);
+        }
+
+        if (marine1 && marine1->doesClickSelect(point)) {
+            marine1->setSelected(true);
+        }
+        if (marine2 && marine2->doesClickSelect(point)) {
+            marine2->setSelected(true);
+        }
+    }
 }

@@ -26,7 +26,8 @@ private:
 
     bool applicationIsRunning = false;
     u_int64_t frameStart = 0;
-    Marine *marine = nullptr;
+    Marine *marine1 = nullptr;
+    Marine *marine2 = nullptr;
     Room *room = nullptr;
 
     void startFrame();
@@ -34,6 +35,8 @@ private:
     void render();
 
     void waitForNextFrame() const;
+
+    void handleMouseClick(const SDL_MouseButtonEvent &event);
 
 public:
     Application();
